@@ -1,0 +1,30 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Dessert>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+
+
+<div class="grid-item dessert">
+            <div>
+                <h1>Våra Desserter</h1>
+                <p>Klicka på länk för att se dessert</p>
+                <div>
+                   @{
+                    	var selection = Umbraco.Content(2104)
+                        .ChildrenOfType("dessertRecipe")
+                        .Where(x => x.IsVisible())
+                        .OrderByDescending(x => x.CreateDate);
+                    }
+                    
+                    	@foreach (var item in selection)
+                    	{
+                    		<li>
+                    			<a href="@item.Url()">@item.Name()</a>
+                    		</li>
+                    	}
+                </div>
+            </div>
+        </div>

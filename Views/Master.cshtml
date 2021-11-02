@@ -1,0 +1,120 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = null;
+}
+
+@* the fun starts here *@
+
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+     
+    <title></title>
+</head>
+<body>
+    <div class="container">
+                     <span class="status">
+                              @Html.Partial("LogInStatusPartial")
+                     </span>
+    <div class="nav-menu">
+        <nav id="nav-menu">
+            <div class="img-cupcake">
+                <img  src="/media//fdkhgpgv/cupcake-4.png">
+            </div>
+            <div class="nav-title">
+            <a  href="@Umbraco.Content("4098").Url()">Go'saker </a>
+            </div>
+            <div class="nav-links" id="navLinks">
+                 <ul>
+                    <div class="dropdown">
+                        <li><a href="@Umbraco.Content("4098").Url()">RECEPT</a></li>
+                        <div class="dropdown-content">
+                            
+                         @{
+                        	var selection = Umbraco.Content(4098)
+                            .Children()
+                            .Where(x => x.IsVisible())
+                            .OrderBy(x => x.Name);
+                         }
+                        
+                        	@foreach (var item in selection)
+                        	{
+                        		
+                        			<a href="@item.Url()">@item.Name()</a>
+                        		
+                        	}
+                      
+                        </div>
+                      </div>
+                    <!-- En dropdown, dryck, mat och desert   -->
+                    <li><a href="@Umbraco.Content("2fe8041b-3b88-4953-8292-2c4e7b11cd6b").Url()">VÅRA KOCKAR</a></li>
+                    <li><a href="@Umbraco.Content("2099").Url()">KONTAKT</a></li>
+                      
+                             
+                        <div class="dropdown">
+                               <li><a>SPRÅK</a></li>
+                        <div class="dropdown-content">
+                            
+                        @foreach (var (culture, infos) in Model.Cultures)
+                                {
+                                              
+                                      <li>
+                                         <a href="@Model.Url(culture)">
+                                                  @culture.ToString()
+                                                   @Umbraco.GetDictionaryValue("Settings/Languages/" + culture)
+                                            </a>
+                                        </li>
+                                            
+                                }
+                      
+                        </div>
+                      </div>
+      
+                    
+                           
+
+            </div>
+             </ul>
+                 
+         </nav>
+    </div>
+
+                    @RenderBody()
+                    
+                 <center>  
+                <hr>
+                </center> 
+
+            <!-- Start: Footer Basic -->
+            <footer class="footer-basic">
+                <!-- Start: Social Icons -->
+                <div class="social">
+                    <a href="#"><i class="icon ion-social-instagram"></i></a>
+                    <a href="#"><i class="icon ion-social-snapchat"></i></a>
+                    <a href="#"><i class="icon ion-social-twitter"></i></a>
+                    <a href="#"><i class="icon ion-social-facebook"></i></a>
+                </div><!-- End: Social Icons -->
+                <!-- Start: Links -->
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a href="#">Home</a></li>
+                    <li class="list-inline-item"><a href="#">Services</a></li>
+                    <li class="list-inline-item"><a href="#">About</a></li>
+                    <li class="list-inline-item"><a href="#">Terms</a></li>
+                    <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                </ul><!-- End: Links -->
+                <!-- Start: Copyright -->
+                <p class="copyright">Go'saker © 2021</p><!-- End: Copyright -->
+            </footer><!-- End: Footer Basic -->
+   
+          
+</div>
+</body>
+</html>

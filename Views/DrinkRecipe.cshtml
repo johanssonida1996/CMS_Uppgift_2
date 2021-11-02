@@ -1,0 +1,21 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.DrinkRecipe>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+
+   <div class="course-recipe">
+        <div class="img-recipe">
+              @{
+                            var image = Model.Value<IPublishedContent>("quickViewImage");
+                }
+                            <img class="img-recc" src="@image.Url()" >
+         </div>
+          <div class="recipe-text">
+         <h3>@Model.Value("quickViewTitle")</h3>
+        <p class="recipeP">@Model.Value("drinkRecipeIngredients")</p>
+        <p class="recipeP">@Model.Value("drinkRecipeDescription")</p>
+        </div>
+    </div>

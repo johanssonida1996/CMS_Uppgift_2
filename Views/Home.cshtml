@@ -1,0 +1,57 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Home>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+  <div class="grid-container">
+        <div class="grid-item">
+            <h1>Tips</h1>
+            <div class="row">
+
+
+@{
+	        var randomRecipes = Umbraco.Content(Guid.Parse("05f76b4f-516c-4517-a58f-b6020a1ddc79"))
+            .Descendants()
+            .Where(x => x.IsVisible() &&
+            (x.IsDocumentType("foodRecipe") ||
+            x.IsDocumentType("dessertRecipe")||
+            x.IsDocumentType("drinkRecipe")))
+            .OrderBy(t => Guid.NewGuid()).Take(3);
+}
+
+
+
+	@foreach (var randomRecipe in randomRecipes)
+	{
+		 <div class="course-col">
+                    <div class="img-col">
+                         @{
+                             var image = randomRecipe.Value<IPublishedContent>("quickViewImage");
+                        }
+                    <img class="img-rec" src="@image.Url()">
+                     </div>
+                     
+                     <a class="a-recipe" href="@randomRecipe.Url()">@randomRecipe.Name()</a>
+        </div>
+	}
+
+
+
+
+                
+                
+
+
+
+  
+            </div>
+        </div>
+            <div class="grid-item hem">
+            <div>
+                <h1>@Model.Value("homeTitle")</h1>
+                <p>@Model.Value("homeDescription")</p>
+            </div>
+        </div>
+    </div>
